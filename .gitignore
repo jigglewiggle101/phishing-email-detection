@@ -1,1 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.joblib
+*.npy
+*.npz
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+.conda/
+*.egg-info/
+
+# Jupyter / notebooks
+.ipynb_checkpoints/
+
+# Logs & caches
+*.log
+*.out
+*.err
+*.tmp
+.cache/
+*.DS_Store
+
+# Data (keep only small test CSVs if needed)
+data/*.csv
+!data/validation_phish_2024.csv   # keep small validation set
+!data/mini_emails.csv             # keep small sample
+
+# Large model artifacts
+phish_*.joblib
+learning_curve.csv
+learning_curve.png
+
+# VSCode / IDE
+.vscode/
+.idea/
+*.swp
 

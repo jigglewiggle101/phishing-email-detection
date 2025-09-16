@@ -1,26 +1,38 @@
-name: Phish Detection
+name: Phish Scoring (SharePoint Queue)
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Runs every 5 minutes
+    - cron: "*/5 * * * *"   # every 5 minutes
+  workflow_dispatch:
 
 jobs:
-  run-ml-check:
+  score:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 20
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run phishing detection script
-        run: |
-          python your_script.py
+      - name: Score SharePoint queue
+        env:
+          SP_TENANT_ID: ${{ secrets.SP_TENANT_ID }}
+          SP_CLIENT_ID: ${{ secrets.SP_CLIENT_ID }}
+          SP_CLIENT_SECRET: ${{ secrets.SP_CLIENT_SECRET }}
+          SP_SITE: ${{ secrets.SP_SITE }}         # e.g. https://contoso.sharepoint.com/sites/SecOps
+          SP_LIST: PhishInbox
+          PHISH_MODEL: phish_hybrid_calibrated.joblib
+          SP_BATCH: "200"
+          # Optional perf/env knobs for SBERT pipelines:
+          TRANSFORMERS_NO_TF: "1"
+          TRANSFORMERS_NO_FLAX: "1"
+          TOKENIZERS_PARALLELISM: "true"
+          SBERT_BATCH: "256"
+        run: python scripts/score_sharepoint_queue.py
