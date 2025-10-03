@@ -1,13 +1,13 @@
 # Phishing Email Detection (ML + Power Automate)
 
-## 📌 Overview
+##  Overview
 
 This repository provides a machine learning pipeline for detecting phishing emails using **hybrid embeddings + engineered signals**.
 The project is designed to integrate seamlessly with **Microsoft Power Automate + SharePoint Online**, enabling real-time detection and quarantine of phishing messages in Outlook.
 
 ---
 
-## ✨ Features
+##  Features
 
 * **Hybrid Model**: Sentence-BERT embeddings + engineered features (URL counts, suspicious phrases, internal sender heuristics).
 * **Calibrated Thresholding**: Tuned decision thresholds to balance **precision vs recall**.
@@ -18,7 +18,7 @@ The project is designed to integrate seamlessly with **Microsoft Power Automate 
 
 ---
 
-## 📂 Repository Structure
+##  Repository Structure
 
 ```
 .github/workflows/
@@ -41,7 +41,7 @@ requirements.txt              # runtime dependencies
 
 ---
 
-## 📊 Model Performance
+##  Model Performance
 
 * **Hybrid Model (40k train, 15k validation):**
 
@@ -54,7 +54,7 @@ requirements.txt              # runtime dependencies
 
 ---
 
-## 🚀 Deployment Architecture
+##  Deployment Architecture
 
 1. **Inbox → SharePoint (Power Automate Flow A)**
 
@@ -72,7 +72,7 @@ requirements.txt              # runtime dependencies
 
 ---
 
-## 🔧 Requirements
+##  Requirements
 
 * Python 3.10+
 * Dependencies:
@@ -106,7 +106,7 @@ python scripts/evaluate_on_validation.py \
 
 ---
 
-## ⚡ GitHub Actions Setup
+##  GitHub Actions Setup
 
 1. Commit `.github/workflows/phish_score.yml`.
 2. Upload model artifact (`phish_hybrid_calibrated.joblib`) to SharePoint (document library).
@@ -117,14 +117,14 @@ python scripts/evaluate_on_validation.py \
 
 ---
 
-## 📌 Power Automate Flows
+##  Power Automate Flows
 
 * **Flow A (Intake)**: Outlook → Create item in SharePoint list (`PhishInbox`).
 * **Flow B (Action)**: On item modified (`Status=Scored`), move/quarantine/report based on `Score`.
 
 ---
 
-## 🔮 Future Improvements
+##  Future Improvements
 
 * Broader dataset coverage (multi-language, industry-specific phish).
 * Richer signals (HTML form detection, attachment inspection).
@@ -133,7 +133,7 @@ python scripts/evaluate_on_validation.py \
 
 ---
 
-## 🛡️ Disclaimer
+##  Disclaimer
 
 This project is provided for **educational and research purposes**.
 Before deploying in production, review your organization’s compliance, governance, and security requirements.
