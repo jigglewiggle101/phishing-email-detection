@@ -23,10 +23,11 @@ jobs:
 
       - name: Score SharePoint queue
         env:
-          SP_TENANT_ID: ${{ secrets.SP_TENANT_ID }}
-          SP_CLIENT_ID: ${{ secrets.SP_CLIENT_ID }}
-          SP_CLIENT_SECRET: ${{ secrets.SP_CLIENT_SECRET }}
-          SP_SITE: ${{ secrets.SP_SITE }}         # e.g. https://contoso.sharepoint.com/sites/SecOps
+          SHAREPOINT_EMAIL: ${{ secrets.SHAREPOINT_EMAIL }}
+          SHAREPOINT_PASSWORD: ${{ secrets.SHAREPOINT_PASSWORD }}
+          SP_LIST1: ${{ secrets.SP_LIST1 }}
+          SP_LIST2: ${{ secrets.SP_LIST2 }}
+          SHAREPOINT_SITE: ${{ secrets.SP_SITE }}        
           SP_LIST: PhishInbox
           PHISH_MODEL: phish_hybrid_calibrated.joblib
           SP_BATCH: "200"
