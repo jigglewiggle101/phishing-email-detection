@@ -28,7 +28,6 @@ jobs:
           SP_LIST1: ${{ secrets.SP_LIST1 }}
           SP_LIST2: ${{ secrets.SP_LIST2 }}
           SHAREPOINT_SITE: ${{ secrets.SP_SITE }}        
-          SP_LIST: PhishInbox
           PHISH_MODEL: phish_hybrid_calibrated.joblib
           SP_BATCH: "200"
           # Optional perf/env knobs for SBERT pipelines:
