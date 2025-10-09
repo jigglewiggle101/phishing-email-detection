@@ -27,7 +27,11 @@ jobs:
           SHAREPOINT_PASSWORD: ${{ secrets.SHAREPOINT_PASSWORD }}
           SP_LIST1: ${{ secrets.SP_LIST1 }}
           SP_LIST2: ${{ secrets.SP_LIST2 }}
-          SHAREPOINT_SITE: ${{ secrets.SP_SITE }}        
+          SHAREPOINT_SITE: ${{ secrets.SP_SITE }} 
+          name: Download wheel from OneDrive
+          run: |
+           curl -L "${{ secrets.wheel_url }}" -o Office365_REST_Python_Client.whl
+           pip install Office365_REST_Python_Client.whl
           PHISH_MODEL: phish_hybrid_calibrated.joblib
           SP_BATCH: "200"
           # Optional perf/env knobs for SBERT pipelines:
