@@ -21,20 +21,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Download wheel from OneDrive
+        run: |
+          curl -L "${{ secrets.WHEEL_URL }}" -o Office365_REST_Python_Client.whl
+          pip install Office365_REST_Python_Client.whl
+
       - name: Score SharePoint queue
         env:
           SHAREPOINT_EMAIL: ${{ secrets.SHAREPOINT_EMAIL }}
           SHAREPOINT_PASSWORD: ${{ secrets.SHAREPOINT_PASSWORD }}
           SP_LIST1: ${{ secrets.SP_LIST1 }}
           SP_LIST2: ${{ secrets.SP_LIST2 }}
-          SHAREPOINT_SITE: ${{ secrets.SP_SITE }} 
-          name: Download wheel from OneDrive
-          run: |
-           curl -L "${{ secrets.wheel_url }}" -o Office365_REST_Python_Client.whl
-           pip install Office365_REST_Python_Client.whl
+          SHAREPOINT_SITE: ${{ secrets.SHAREPOINT_SITE }} 
           PHISH_MODEL: phish_hybrid_calibrated.joblib
           SP_BATCH: "200"
-          # Optional perf/env knobs for SBERT pipelines:
           TRANSFORMERS_NO_TF: "1"
           TRANSFORMERS_NO_FLAX: "1"
           TOKENIZERS_PARALLELISM: "true"
