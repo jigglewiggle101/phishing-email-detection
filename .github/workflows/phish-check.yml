@@ -21,10 +21,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Download wheel from OneDrive
-        run: |
-          curl -L "${{ secrets.WHEEL_URL }}" -o Office365_REST_Python_Client.whl
-          pip install Office365_REST_Python_Client.whl
+      - name: Install Office365 REST Client
+        run: pip install Office365-REST-Python-Client==2.5.10
 
       - name: Score SharePoint queue
         env:
