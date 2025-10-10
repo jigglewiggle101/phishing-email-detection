@@ -17,7 +17,7 @@ python-dotenv>=1.0
 
 # Optional
 shap>=0.42
-email
+
 
 msal
 requests
