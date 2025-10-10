@@ -154,7 +154,12 @@
 
 
 #Most updated:
+import sys
 import os
+
+# Add root directory to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import time
 import joblib
 import pandas as pd
