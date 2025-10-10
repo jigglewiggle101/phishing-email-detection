@@ -37,8 +37,6 @@ jobs:
           TRANSFORMERS_NO_FLAX: "1"
           TOKENIZERS_PARALLELISM: "true"
           SBERT_BATCH: "256"
-      
-      - name: Run scoring with error trace
         run: |
           set -e
           python scripts/score_sharepoint_queue.py || echo "Scoring script failed"
