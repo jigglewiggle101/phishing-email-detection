@@ -176,7 +176,7 @@ MODEL_PATH = os.environ.get("PHISH_MODEL", "phish_hybrid_calibrated.joblib")
 THRESHOLD = float(os.environ.get("PHISH_THRESHOLD", "0.7"))
 
 # Initialize SharePoint client
-sp = SPClient(SITE, EMAIL, PASSWORD)
+sp = SPClient()
 
 # Load model
 bundle = joblib.load(MODEL_PATH)
