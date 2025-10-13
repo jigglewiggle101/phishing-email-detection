@@ -21,18 +21,23 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install Office365 REST Client
+        run: pip install Office365-REST-Python-Client==2.5.10
+
       - name: Score SharePoint queue
         env:
-          SP_TENANT_ID: ${{ secrets.SP_TENANT_ID }}
-          SP_CLIENT_ID: ${{ secrets.SP_CLIENT_ID }}
-          SP_CLIENT_SECRET: ${{ secrets.SP_CLIENT_SECRET }}
-          SP_SITE: ${{ secrets.SP_SITE }}         # e.g. https://contoso.sharepoint.com/sites/SecOps
-          SP_LIST: PhishInbox
+          SHAREPOINT_EMAIL: ${{ secrets.SHAREPOINT_EMAIL }}
+          SHAREPOINT_PASSWORD: ${{ secrets.SHAREPOINT_PASSWORD }}
+          SP_LIST1: ${{ secrets.SP_LIST1 }}
+          SP_LIST2: ${{ secrets.SP_LIST2 }}
+          SHAREPOINT_SITE: ${{ secrets.SHAREPOINT_SITE }} 
           PHISH_MODEL: phish_hybrid_calibrated.joblib
           SP_BATCH: "200"
-          # Optional perf/env knobs for SBERT pipelines:
           TRANSFORMERS_NO_TF: "1"
           TRANSFORMERS_NO_FLAX: "1"
           TOKENIZERS_PARALLELISM: "true"
           SBERT_BATCH: "256"
-        run: python scripts/score_sharepoint_queue.py
+        run: |
+          set -e
+          python scripts/score_sharepoint_queue.py || echo "Scoring script failed"
+

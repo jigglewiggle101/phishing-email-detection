@@ -33,7 +33,7 @@ data/*.csv
 !data/mini_emails.csv             # keep small sample
 
 # Large model artifacts
-phish_*.joblib
+#phish_*.joblib
 learning_curve.csv
 learning_curve.png
 

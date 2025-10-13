@@ -15,6 +15,10 @@ uvicorn>=0.29
 # Utils
 python-dotenv>=1.0
 
+# Optional
+shap>=0.42
+
+
 msal
 requests
 tldextract
