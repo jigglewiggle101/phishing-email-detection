@@ -1,43 +1,43 @@
-name: Phish Scoring (SharePoint Queue)
+# name: Phish Scoring (SharePoint Queue)
 
-on:
-  schedule:
-    - cron: "*/5 * * * *"   # every 5 minutes
-  workflow_dispatch:
+# on:
+#   schedule:
+#     - cron: "*/5 * * * *"   # every 5 minutes
+#   workflow_dispatch:
 
-jobs:
-  score:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
+# jobs:
+#   score:
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 20
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
+#       - uses: actions/setup-python@v5
+#         with:
+#           python-version: "3.10"
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+#       - name: Install dependencies
+#         run: |
+#           python -m pip install --upgrade pip
+#           pip install -r requirements.txt
 
-      - name: Install Office365 REST Client
-        run: pip install Office365-REST-Python-Client==2.5.10
+#       - name: Install Office365 REST Client
+#         run: pip install Office365-REST-Python-Client==2.5.10
 
-      - name: Score SharePoint queue
-        env:
-          SHAREPOINT_EMAIL: ${{ secrets.SHAREPOINT_EMAIL }}
-          SHAREPOINT_PASSWORD: ${{ secrets.SHAREPOINT_PASSWORD }}
-          SP_LIST1: ${{ secrets.SP_LIST1 }}
-          SP_LIST2: ${{ secrets.SP_LIST2 }}
-          SHAREPOINT_SITE: ${{ secrets.SHAREPOINT_SITE }} 
-          PHISH_MODEL: phish_hybrid_calibrated.joblib
-          SP_BATCH: "200"
-          TRANSFORMERS_NO_TF: "1"
-          TRANSFORMERS_NO_FLAX: "1"
-          TOKENIZERS_PARALLELISM: "true"
-          SBERT_BATCH: "256"
-        run: |
-          set -e
-          python scripts/score_sharepoint_queue.py || echo "Scoring script failed"
+#       - name: Score SharePoint queue
+#         env:
+#           SHAREPOINT_EMAIL: ${{ secrets.SHAREPOINT_EMAIL }}
+#           SHAREPOINT_PASSWORD: ${{ secrets.SHAREPOINT_PASSWORD }}
+#           SP_LIST1: ${{ secrets.SP_LIST1 }}
+#           SP_LIST2: ${{ secrets.SP_LIST2 }}
+#           SHAREPOINT_SITE: ${{ secrets.SHAREPOINT_SITE }} 
+#           PHISH_MODEL: phish_hybrid_calibrated.joblib
+#           SP_BATCH: "200"
+#           TRANSFORMERS_NO_TF: "1"
+#           TRANSFORMERS_NO_FLAX: "1"
+#           TOKENIZERS_PARALLELISM: "true"
+#           SBERT_BATCH: "256"
+#         run: |
+#           set -e
+#           python scripts/score_sharepoint_queue.py || echo "Scoring script failed"
 
