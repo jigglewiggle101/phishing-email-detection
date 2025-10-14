@@ -43,31 +43,31 @@
 #         return response.json()
 
 #Refactored
-import os
-from office365.sharepoint.client_context import ClientContext
-from office365.runtime.auth.user_credential import UserCredential
+# import os
+# from office365.sharepoint.client_context import ClientContext
+# from office365.runtime.auth.user_credential import UserCredential
 
-class SPClient:
-    def __init__(self):
-        site_url = os.environ.get("SHAREPOINT_SITE")
-        email = os.environ.get("SHAREPOINT_EMAIL")
-        password = os.environ.get("SHAREPOINT_PASSWORD")
-        self.ctx = ClientContext(site_url).with_credentials(UserCredential(email, password))
+# class SPClient:
+#     def __init__(self):
+#         site_url = os.environ.get("SHAREPOINT_SITE")
+#         email = os.environ.get("SHAREPOINT_EMAIL")
+#         password = os.environ.get("SHAREPOINT_PASSWORD")
+#         self.ctx = ClientContext(site_url).with_credentials(UserCredential(email, password))
 
-    def get_pending(self, list_title: str, top: int = 100):
-        sp_list = self.ctx.web.lists.get_by_title(list_title)
-        items = sp_list.items.filter("Status eq 'Pending'").top(top).get().execute_query()
-        return [item.properties for item in items]
+#     def get_pending(self, list_title: str, top: int = 100):
+#         sp_list = self.ctx.web.lists.get_by_title(list_title)
+#         items = sp_list.items.filter("Status eq 'Pending'").top(top).get().execute_query()
+#         return [item.properties for item in items]
 
-    def update_item(self, list_title: str, item_id: int, payload: dict):
-        sp_list = self.ctx.web.lists.get_by_title(list_title)
-        item = sp_list.items.get_by_id(item_id)
-        for k, v in payload.items():
-            item.set_property(k, v)
-        item.update().execute_query()
+#     def update_item(self, list_title: str, item_id: int, payload: dict):
+#         sp_list = self.ctx.web.lists.get_by_title(list_title)
+#         item = sp_list.items.get_by_id(item_id)
+#         for k, v in payload.items():
+#             item.set_property(k, v)
+#         item.update().execute_query()
 
-    def create_item(self, list_title: str, payload: dict):
-        sp_list = self.ctx.web.lists.get_by_title(list_title)
-        item = sp_list.add_item(payload).execute_query()
-        return item.properties
+#     def create_item(self, list_title: str, payload: dict):
+#         sp_list = self.ctx.web.lists.get_by_title(list_title)
+#         item = sp_list.add_item(payload).execute_query()
+#         return item.properties
 
